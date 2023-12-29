@@ -25,14 +25,14 @@ class MultiDataset(Dataset):
                     continue
                 dataset_labels = [label] * len(dataset_images)
                 self.images.extend(dataset_images)
-                self.labels.append(dataset_labels)
+                self.labels.extend(dataset_labels)
 
     def __getitem__(self, ind):
         image = Image.open(self.images[ind])
+        label = self.labels[ind]
         if self.transform is not None:
-            return self.transform(image)
-        return image
+            return self.transform(image), label
+        return image, label
         
     def __len__(self):
         return len(self.images)
-
