@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 parser = argparse.ArgumentParser(prog='EmRec')
 # Dataset
 parser.add_argument('-a', dest='all_datasets', action='store_true',
-                    help='Use all available datasets')
+                    help='Use all available datasets') ###
 parser.add_argument('-d', dest='datasets', type=str, nargs='+',
                     help='Datasets to use')
 parser.add_argument('--img_size', type=int,
@@ -20,6 +20,8 @@ parser.add_argument('-b', '--batch_size', type=int,
                     help='Batch size for training')
 parser.add_argument('-j', '--num_workers', type=int, default=4,
                     help='Number of workers')
+parser.add_argument('-s', '--save_every', type=int,
+                    help='Make checkpoint after save_every number of epochs') ###
 
 args = parser.parse_args()
 

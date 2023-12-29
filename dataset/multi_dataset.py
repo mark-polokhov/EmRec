@@ -8,8 +8,15 @@ class MultiDataset(Dataset):
         super().__init__()
 
         self.labels_list = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
-        self.datasets = args.datasets
+        if args.all_datasets:
+            self.datasets = [folder for folder in os.listdir('./dataset/')
+                             if os.path.isdir(''.join(['./dataset/', folder]))
+                             and not folder.lower().startswith('_')]
+        else:
+            self.datasets = args.datasets
         self.transform = transform
+
+        print(self.datasets)
 
         self.images = []
         self.labels = []
