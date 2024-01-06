@@ -22,6 +22,12 @@ parser.add_argument('-j', '--num_workers', type=int, default=4,
                     help='Number of workers')
 parser.add_argument('-s', '--save_every', type=int,
                     help='Make checkpoint after save_every number of epochs') ###
+parser.add_argument('--optimizer', type=str,
+                    help='Adam or SGD')
+parser.add_argument('-m', '--model', type=str,
+                    help='Which model to use (resnet50)') ###
+parser.add_argument('-lr', '--lr_scheduler', type=str, default=None,
+                    help='Which lr scheduler to use') ###
 
 args = parser.parse_args()
 
