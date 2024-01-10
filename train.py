@@ -28,6 +28,8 @@ parser.add_argument('-m', '--model', type=str,
                     help='Which model to use (resnet50)') ###
 parser.add_argument('-lr', '--lr_scheduler', type=str, default=None,
                     help='Which lr scheduler to use') ###
+parser.add_argument('-e', '--epochs', type=int,
+                    help='Number of epochs to train model')
 
 args = parser.parse_args()
 

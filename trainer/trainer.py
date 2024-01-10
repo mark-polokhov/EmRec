@@ -1,5 +1,6 @@
 from models import ConvLayers
 
+import torch
 import torch.nn as nn
 from torch.optim import Adam, SGD
 
@@ -15,3 +16,14 @@ class Trainer():
         self.criterion = nn.BCELoss()
         self.model = ConvLayers()
         self.lr_scheduler = args.lr_scheduler
+
+        self.device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+        print('Currently used device:', self.device)
+
+        self.model.to(self.device)
+
+    def train():
+        pass
+
+    def train_epoch(args):
+        max_epochs = args.epochs
