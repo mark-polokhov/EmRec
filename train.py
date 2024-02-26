@@ -1,4 +1,5 @@
-from dataset import MultiDataset, apply_transform
+from dataset import MultiDataset, apply_transform, train_val_split
+from trainer import Trainer
 
 import config
 import argparse
@@ -15,11 +16,17 @@ parser.add_argument('--img_size', type=int,
                     help='Every image in the Dataset will be transform to img_size')
 parser.add_argument('--transform', type=str, default='default',
                     help='What tranform use for images in Dataset')
+parser.add_argument('--val_split', type=float,
+                    help='Fraction of validation set size (from 0 to 1)')
+parser.add_argument('--split_seed', type=int,
+                    help='Seed for dataset split for reproducibility')
 # Other
 parser.add_argument('-b', '--batch_size', type=int,
                     help='Batch size for training')
 parser.add_argument('-j', '--num_workers', type=int, default=4,
                     help='Number of workers')
+parser.add_argument('-ch', '--checkpoint', type=str,
+                    help='name of the checkpoint file to start training with') ###
 parser.add_argument('-s', '--save_every', type=int,
                     help='Make checkpoint after save_every number of epochs') ###
 parser.add_argument('--optimizer', type=str,
@@ -36,9 +43,13 @@ args = parser.parse_args()
 
 def run_training():
     dataset = MultiDataset(args, transform=apply_transform(args))
-    dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True,
+    train_dataset, val_dataset = train_val_split(dataset, args)
+    train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
                             num_workers=args.num_workers)
-
+    val_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
+                            num_workers=args.num_workers)
+    trainer = Trainer(args)
+    trainer.train(train_dataloader, val_dataloader, args)
 
 if __name__ == '__main__':
     run_training()

@@ -1,6 +1,7 @@
 import os
 from PIL import Image
-from torch.utils.data import Dataset
+from torch import Generator
+from torch.utils.data import Dataset, random_split
 
 
 class MultiDataset(Dataset):
@@ -21,7 +22,7 @@ class MultiDataset(Dataset):
         self.images = []
         self.labels = []
         for dataset in self.datasets:
-            for label in self.labels_list:
+            for ind, label in enumerate(self.labels_list):
                 dataset_path = ''.join(['./dataset/', dataset, '/', label])
                 dataset_images = [''.join([dataset_path, '/', file])
                                   for file in os.listdir(dataset_path)
@@ -30,7 +31,7 @@ class MultiDataset(Dataset):
                 if dataset_images == []:
                     print("Dataset {} doesn't exist, skipping".format(dataset))
                     continue
-                dataset_labels = [label] * len(dataset_images)
+                dataset_labels = [ind] * len(dataset_images)
                 self.images.extend(dataset_images)
                 self.labels.extend(dataset_labels)
 
@@ -43,3 +44,16 @@ class MultiDataset(Dataset):
         
     def __len__(self):
         return len(self.images)
+    
+    def inds2labels(self, inds):
+        return [self.labels_list[ind] for ind in inds]
+
+def train_val_split(dataset, args):
+    if args.split_seed:
+        generator = Generator().manual_seed(args.split_seed)
+    else:
+        generator = Generator()
+    if args.val_split != None:
+        return random_split(dataset, [1 - args.val_split, args.val_split], generator=generator)
+    print('--val_split is not set, no validation will be proceeded')
+    return dataset, Dataset()
