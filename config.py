@@ -6,7 +6,7 @@ config = [
     '--val_split 0.1',
     '--split_seed 18',
 
-    '--epochs 5',
+    '--epochs 2',
     '--batch_size 32',
     '--num_workers 4',
     '--optimizer Adam',

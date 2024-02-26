@@ -2,6 +2,7 @@ from models import ConvLayers
 
 from datetime import datetime
 import os
+import re
 import torch
 import torch.nn as nn
 from torch.optim import Adam, SGD
@@ -13,8 +14,11 @@ class Trainer():
     def __init__(self, args):
         self.model = ConvLayers()
 
-        if args.checkpoint != None:
+        self.loaded_epoch = 0
+        if args.checkpoint:
             self.model.load_state_dict(torch.load(''.join(['./checkpoint/', args.checkpoint])))
+            self.loaded_epoch = int(re.findall(r'_e\d+_', args.checkpoint)[0][2:-1])
+
 
         self.criterion = nn.CrossEntropyLoss()
         if args.optimizer.lower() == 'adam':
@@ -38,7 +42,7 @@ class Trainer():
             train_loss, train_acc = self.train_epoch(train_dataloader)
             val_loss, val_acc = self.eval(val_dataloader)
             print('Epoch {:4} | train_loss: {:4f}\ttrain_acc: {:4f}\tval_loss: {:4f}\tval_acc: {:4f}'
-                  .format(epoch, train_loss, train_acc, val_loss, val_acc))
+                  .format(epoch + 1, train_loss, train_acc, val_loss, val_acc))
             if epoch % args.save_every == 0:
                 self.save_checkpoint(epoch, val_loss)
                 
@@ -96,6 +100,7 @@ class Trainer():
         return losses / length, correct / total
     
     def save_checkpoint(self, epoch, val_loss):
+        epoch += self.loaded_epoch + 1
         checkpoint_last = [checkpoint for checkpoint in os.listdir('./checkpoint/')
                            if checkpoint.endswith('checkpoint_last.pt')]
         try:

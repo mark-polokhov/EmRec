@@ -3,7 +3,6 @@ from config import config
 
 import subprocess
 import argparse
-import sys
 
 parser = argparse.ArgumentParser(prog='EmRec Training')
 parser.add_argument('--train', action='store_true',
