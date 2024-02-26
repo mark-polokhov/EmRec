@@ -46,7 +46,7 @@ def run_training():
     train_dataset, val_dataset = train_val_split(dataset, args)
     train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
                             num_workers=args.num_workers)
-    val_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True,
+    val_dataloader = DataLoader(train_dataset, batch_size=1, shuffle=False,
                             num_workers=args.num_workers)
     trainer = Trainer(args)
     trainer.train(train_dataloader, val_dataloader, args)
