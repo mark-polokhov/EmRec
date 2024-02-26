@@ -6,11 +6,11 @@ import argparse
 from torch.utils.data import DataLoader
 
 
-parser = argparse.ArgumentParser(prog='EmRec')
+parser = argparse.ArgumentParser(prog='EmRec Training')
 # Dataset
 parser.add_argument('-a', dest='all_datasets', action='store_true',
                     help='Use all available datasets') ###
-parser.add_argument('-d', dest='datasets', type=str, nargs='+',
+parser.add_argument('-d', '--datasets', type=str, nargs='+',
                     help='Datasets to use')
 parser.add_argument('--img_size', type=int,
                     help='Every image in the Dataset will be transform to img_size')
@@ -21,6 +21,8 @@ parser.add_argument('--val_split', type=float,
 parser.add_argument('--split_seed', type=int,
                     help='Seed for dataset split for reproducibility')
 # Other
+parser.add_argument('-e', '--epochs', type=int,
+                    help='Number of epochs to train model')
 parser.add_argument('-b', '--batch_size', type=int,
                     help='Batch size for training')
 parser.add_argument('-j', '--num_workers', type=int, default=4,
@@ -35,8 +37,6 @@ parser.add_argument('-m', '--model', type=str,
                     help='Which model to use (resnet50)') ###
 parser.add_argument('-lr', '--lr_scheduler', type=str, default=None,
                     help='Which lr scheduler to use') ###
-parser.add_argument('-e', '--epochs', type=int,
-                    help='Number of epochs to train model')
 
 args = parser.parse_args()
 
