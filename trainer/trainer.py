@@ -53,7 +53,8 @@ class Trainer():
             val_loss, val_acc = self.eval(val_dataloader)
             print('Epoch {:4} [{:4}] | train_loss: {:4f}\ttrain_acc: {:4f}\tval_loss: {:4f}\tval_acc: {:4f}'
                   .format(epoch + 1, self.loaded_epoch + epoch + 1, train_loss, train_acc, val_loss, val_acc))
-            wandb.log({'train_accuracy': train_acc, 'train_loss': train_loss, 'val_accuracy': val_acc, 'val_loss': val_loss})
+            wandb.log({'train_accuracy': train_acc, 'train_loss': train_loss, 'val_accuracy': val_acc, 'val_loss': val_loss,
+                       'epoch': self.loaded_epoch + epoch + 1})
             if epoch % args.save_every == 0:
                 self.save_checkpoint(epoch, val_acc)
 
@@ -125,7 +126,7 @@ class Trainer():
             print('checkpoint_last failed to save')
             return
         [os.remove(''.join(['./checkpoint/', old_checkpoint])) for old_checkpoint in checkpoint_last]
-        if self.loss_best == None or val_acc < self.loss_best:
+        if self.loss_best == None or val_acc > self.loss_best:
             checkpoint_best = [checkpoint for checkpoint in os.listdir('./checkpoint/')
                                if checkpoint.endswith('checkpoint_best.pt')]
             try:

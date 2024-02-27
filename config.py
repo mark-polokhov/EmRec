@@ -8,7 +8,7 @@ config = [
 
     '--model resnet50',
     '--epochs 50',
-    '--batch_size 64',
+    '--batch_size 32',
     '--num_workers 12',
     '--optimizer Adam',
     '--save_every 1',
