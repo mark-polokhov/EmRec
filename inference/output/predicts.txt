@@ -1,4 +1,6 @@
-./dataset/test_tiny/image_1.jpg surprise
+./dataset/test_tiny/image_1.jpg fear
 ./dataset/test_tiny/image_2.jpg neutral
 ./dataset/test_tiny/image_3.jpg surprise
 ./dataset/test_tiny/image_4.jpg neutral
+./dataset/test_tiny/image_5.jpg disgust
+./dataset/test_tiny/image_6.jpg neutral

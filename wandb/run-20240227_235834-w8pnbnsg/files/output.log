@@ -1,0 +1,56 @@
+
+  0%|                                                                                                                                                                       | 0/369 [00:33<?, ?it/s]
+Traceback (most recent call last):
+  File "D:\HSE\Diploma\Emotion Recognition\train.py", line 54, in <module>
+    run_training()
+  File "D:\HSE\Diploma\Emotion Recognition\train.py", line 51, in run_training
+    trainer.train(train_dataloader, val_dataloader, args)
+  File "D:\HSE\Diploma\Emotion Recognition\trainer\trainer.py", line 52, in train
+    train_loss, train_acc = self.train_epoch(train_dataloader)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\trainer\trainer.py", line 69, in train_epoch
+    for images, target in tqdm(dataloader):
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\tqdm\std.py", line 1182, in __iter__
+    for obj in iterable:
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 630, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\_utils.py", line 694, in reraise
+    raise exception
+TypeError: Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\_utils\worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\_utils\fetch.py", line 49, in fetch
+    data = self.dataset.__getitems__(possibly_batched_index)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataset.py", line 364, in __getitems__
+    return [self.dataset[self.indices[idx]] for idx in indices]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataset.py", line 364, in <listcomp>
+    return [self.dataset[self.indices[idx]] for idx in indices]
+            ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\dataset\multi_dataset.py", line 57, in __getitem__
+    return self.transform(image), label
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torchvision\transforms\transforms.py", line 95, in __call__
+    img = t(img)
+          ^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torchvision\transforms\transforms.py", line 277, in forward
+    return F.normalize(tensor, self.mean, self.std, self.inplace)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torchvision\transforms\functional.py", line 361, in normalize
+    raise TypeError(f"img should be Tensor Image. Got {type(tensor)}")
+TypeError: img should be Tensor Image. Got <class 'PIL.Image.Image'>

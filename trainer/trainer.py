@@ -9,6 +9,7 @@ import torch.nn as nn
 from torch.optim import Adam, SGD
 from tqdm import tqdm
 
+import wandb
 
 
 class Trainer():
@@ -40,6 +41,11 @@ class Trainer():
 
         self.loss_best = None
 
+        wandb.init(
+            project="EmRec",
+            config=args.__dict__
+        )
+
     def train(self, train_dataloader, val_dataloader, args):
         max_epochs = args.epochs
         for epoch in range(max_epochs):
@@ -47,9 +53,9 @@ class Trainer():
             val_loss, val_acc = self.eval(val_dataloader)
             print('Epoch {:4} [{:4}] | train_loss: {:4f}\ttrain_acc: {:4f}\tval_loss: {:4f}\tval_acc: {:4f}'
                   .format(epoch + 1, self.loaded_epoch + epoch + 1, train_loss, train_acc, val_loss, val_acc))
+            wandb.log({'train_accuracy': train_acc, 'train_loss': train_loss, 'val_accuracy': val_acc, 'val_loss': val_loss})
             if epoch % args.save_every == 0:
-                self.save_checkpoint(epoch, val_loss)
-                
+                self.save_checkpoint(epoch, val_acc)
 
     def train_epoch(self, dataloader):
         self.model.train()
@@ -76,6 +82,7 @@ class Trainer():
             _, predicted = torch.max(logits.data, 1)
             correct += (predicted == target).sum().item()
             total += len(target)
+            wandb.log({'running_accuracy': (predicted == target).sum().item() / len(target), 'running_loss': loss.item()})
         
         return losses / length, correct / total
     
@@ -104,7 +111,7 @@ class Trainer():
 
         return losses / length, correct / total
     
-    def save_checkpoint(self, epoch, val_loss):
+    def save_checkpoint(self, epoch, val_acc):
         '''
         Saves checkpoint of the model
         '''
@@ -118,7 +125,7 @@ class Trainer():
             print('checkpoint_last failed to save')
             return
         [os.remove(''.join(['./checkpoint/', old_checkpoint])) for old_checkpoint in checkpoint_last]
-        if self.loss_best == None or val_loss < self.loss_best:
+        if self.loss_best == None or val_acc < self.loss_best:
             checkpoint_best = [checkpoint for checkpoint in os.listdir('./checkpoint/')
                                if checkpoint.endswith('checkpoint_best.pt')]
             try:
@@ -127,7 +134,7 @@ class Trainer():
             except OSError:
                 print('checkpoint_best failed to save')
                 return
-            self.loss_best = val_loss
+            self.loss_best = val_acc
             [os.remove(''.join(['./checkpoint/', old_checkpoint])) for old_checkpoint in checkpoint_best]
 
     def save_config(self, args):

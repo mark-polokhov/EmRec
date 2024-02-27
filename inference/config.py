@@ -4,6 +4,6 @@ infer_config = [
     '--transform default',
 
     '--num_workers 4',
-    '--checkpoint 20240227_e6_checkpoint_last.pt',
+    '--checkpoint 20240226_e5_checkpoint_last.pt',
     '--model resnet50',
 ]

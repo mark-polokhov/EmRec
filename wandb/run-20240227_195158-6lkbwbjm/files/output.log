@@ -1,0 +1,66 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 15%|██████████████████████▊                                                                                                                                      | 107/737 [01:22<08:03,  1.30it/s]
+Traceback (most recent call last):
+  File "D:\HSE\Diploma\Emotion Recognition\train.py", line 54, in <module>
+    run_training()
+  File "D:\HSE\Diploma\Emotion Recognition\train.py", line 51, in run_training
+    trainer.train(train_dataloader, val_dataloader, args)
+  File "D:\HSE\Diploma\Emotion Recognition\trainer\trainer.py", line 52, in train
+    train_loss, train_acc = self.train_epoch(train_dataloader)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\trainer\trainer.py", line 69, in train_epoch
+    for images, target in tqdm(dataloader):
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\tqdm\std.py", line 1182, in __iter__
+    for obj in iterable:
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 630, in __next__
+    data = self._next_data()
+           ^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 1328, in _next_data
+    idx, data = self._get_data()
+                ^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 1294, in _get_data
+    success, data = self._try_get_data()
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "D:\HSE\Diploma\Emotion Recognition\.venv\Lib\site-packages\torch\utils\data\dataloader.py", line 1132, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\multiprocessing\queues.py", line 113, in get
+    if not self._poll(timeout):
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\multiprocessing\connection.py", line 256, in poll
+    return self._poll(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\multiprocessing\connection.py", line 329, in _poll
+    return bool(wait([self], timeout))
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\multiprocessing\connection.py", line 878, in wait
+    ready_handles = _exhaustive_wait(waithandle_to_obj.keys(), timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python311\Lib\multiprocessing\connection.py", line 810, in _exhaustive_wait
+    res = _winapi.WaitForMultipleObjects(L, False, timeout)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

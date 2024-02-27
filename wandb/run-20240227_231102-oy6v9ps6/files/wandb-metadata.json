@@ -1,0 +1,76 @@
+{
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.11.4",
+    "heartbeatAt": "2024-02-27T20:11:08.641645",
+    "startedAt": "2024-02-27T20:11:02.729879",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--datasets",
+        "affectnet_short",
+        "--img_size",
+        "156",
+        "--transform",
+        "default",
+        "--val_split",
+        "0.1",
+        "--split_seed",
+        "42",
+        "--model",
+        "resnet50",
+        "--epochs",
+        "50",
+        "--batch_size",
+        "64",
+        "--num_workers",
+        "8",
+        "--optimizer",
+        "Adam",
+        "--save_every",
+        "1"
+    ],
+    "state": "running",
+    "program": "D:\\HSE\\Diploma\\Emotion Recognition\\train.py",
+    "codePathLocal": "train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "https://github.com/mark-polokhov/Emotion-Recognition",
+        "commit": "4b39c2ca5c822c04569614e1ccdc94572698cc8d"
+    },
+    "email": "myupolokhov@edu.hse.ru",
+    "root": "D:/HSE/Diploma/Emotion Recognition",
+    "host": "LAPTOP-IP9GPOR1",
+    "username": "Mark Polokhov",
+    "executable": "D:\\HSE\\Diploma\\Emotion Recognition\\.venv\\Scripts\\python.exe",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 2208.0,
+        "min": 0.0,
+        "max": 2208.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2208.0,
+            "min": 0.0,
+            "max": 2208.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 917.4369735717773,
+            "used": 896.8110084533691
+        }
+    },
+    "gpu": "NVIDIA GeForce GTX 1050 Ti",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce GTX 1050 Ti",
+            "memory_total": 4294967296
+        }
+    ],
+    "memory": {
+        "total": 15.811725616455078
+    }
+}

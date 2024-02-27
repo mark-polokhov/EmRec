@@ -1,0 +1,72 @@
+wandb_version: 1
+
+all_datasets:
+  desc: null
+  value: false
+datasets:
+  desc: null
+  value:
+  - affectnet_short
+img_size:
+  desc: null
+  value: 156
+transform:
+  desc: null
+  value: classic
+val_split:
+  desc: null
+  value: 0.1
+split_seed:
+  desc: null
+  value: 18
+epochs:
+  desc: null
+  value: 50
+batch_size:
+  desc: null
+  value: 64
+num_workers:
+  desc: null
+  value: 8
+checkpoint:
+  desc: null
+  value: null
+save_every:
+  desc: null
+  value: 1
+optimizer:
+  desc: null
+  value: Adam
+model:
+  desc: null
+  value: resnet50
+lr_scheduler:
+  desc: null
+  value: null
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.4
+    cli_version: 0.16.3
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1709067514.647761
+    t:
+      1:
+      - 1
+      - 41
+      - 55
+      2:
+      - 1
+      - 41
+      - 55
+      3:
+      - 16
+      - 23
+      4: 3.11.4
+      5: 0.16.3
+      8:
+      - 3
+      - 5
+      13: windows-amd64

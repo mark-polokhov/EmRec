@@ -14,7 +14,7 @@ parser.add_argument('-d', '--datasets', type=str, nargs='+',
 parser.add_argument('--img_size', type=int,
                     help='Every image in the Dataset will be transform to img_size')
 parser.add_argument('--transform', type=str, default='default',
-                    help='What tranform use for images in Dataset')
+                    help='What tranform use for images in Dataset (default, classic)')
 parser.add_argument('--val_split', type=float,
                     help='Fraction of validation set size (from 0 to 1)')
 parser.add_argument('--split_seed', type=int,
