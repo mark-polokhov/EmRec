@@ -1,14 +1,13 @@
 from dataset import MultiDataset, apply_transform, train_val_split
 from trainer import Trainer
 
-import config
 import argparse
 from torch.utils.data import DataLoader
 
 
-parser = argparse.ArgumentParser(prog='EmRec Training')
+parser = argparse.ArgumentParser(prog='EmRec [Training]')
 # Dataset
-parser.add_argument('-a', dest='all_datasets', action='store_true',
+parser.add_argument('-a','--all_datasets', action='store_true',
                     help='Use all available datasets') ###
 parser.add_argument('-d', '--datasets', type=str, nargs='+',
                     help='Datasets to use')

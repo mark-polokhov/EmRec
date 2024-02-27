@@ -2,3 +2,4 @@ dataset/*/
 *__pycache__/
 build/
 _saved_checkpoints
+checkpoint/*.pt

@@ -1,5 +1,6 @@
 from models import ConvLayers
 
+from collections.abc import Iterable
 from datetime import datetime
 import os
 import re
@@ -12,13 +13,15 @@ from tqdm import tqdm
 
 class Trainer():
     def __init__(self, args):
-        self.model = ConvLayers()
+        if args.model.lower() == 'resnet50':
+            self.model = ConvLayers()
+        else:
+            raise NotImplementedError
 
         self.loaded_epoch = 0
         if args.checkpoint:
             self.model.load_state_dict(torch.load(''.join(['./checkpoint/', args.checkpoint])))
             self.loaded_epoch = int(re.findall(r'_e\d+_', args.checkpoint)[0][2:-1])
-
 
         self.criterion = nn.CrossEntropyLoss()
         if args.optimizer.lower() == 'adam':
@@ -33,6 +36,7 @@ class Trainer():
         print('Currently using device:', self.device)
 
         self.model.to(self.device)
+        self.save_config(args)
 
         self.loss_best = None
 
@@ -41,8 +45,8 @@ class Trainer():
         for epoch in range(max_epochs):
             train_loss, train_acc = self.train_epoch(train_dataloader)
             val_loss, val_acc = self.eval(val_dataloader)
-            print('Epoch {:4} | train_loss: {:4f}\ttrain_acc: {:4f}\tval_loss: {:4f}\tval_acc: {:4f}'
-                  .format(epoch + 1, train_loss, train_acc, val_loss, val_acc))
+            print('Epoch {:4} [{:4}] | train_loss: {:4f}\ttrain_acc: {:4f}\tval_loss: {:4f}\tval_acc: {:4f}'
+                  .format(epoch + 1, self.loaded_epoch + epoch + 1, train_loss, train_acc, val_loss, val_acc))
             if epoch % args.save_every == 0:
                 self.save_checkpoint(epoch, val_loss)
                 
@@ -84,22 +88,26 @@ class Trainer():
         correct = 0
         total = 0
 
-        for images, target in tqdm(dataloader):
-            images = images.to(self.device)
-            target = target.to(self.device)
-            logits = self.model(images)
+        with torch.no_grad():
+            for images, target in tqdm(dataloader):
+                images = images.to(self.device)
+                target = target.to(self.device)
+                logits = self.model(images)
 
-            loss = self.criterion(logits, target)
-            losses += loss.item()
-            length += 1
+                loss = self.criterion(logits, target)
+                losses += loss.item()
+                length += 1
 
-            _, predicted = torch.max(logits.data, 1)
-            correct += (predicted == target).sum().item()
-            total += len(target)
+                _, predicted = torch.max(logits.data, 1)
+                correct += (predicted == target).sum().item()
+                total += len(target)
 
         return losses / length, correct / total
     
     def save_checkpoint(self, epoch, val_loss):
+        '''
+        Saves checkpoint of the model
+        '''
         epoch += self.loaded_epoch + 1
         checkpoint_last = [checkpoint for checkpoint in os.listdir('./checkpoint/')
                            if checkpoint.endswith('checkpoint_last.pt')]
@@ -121,3 +129,13 @@ class Trainer():
                 return
             self.loss_best = val_loss
             [os.remove(''.join(['./checkpoint/', old_checkpoint])) for old_checkpoint in checkpoint_best]
+
+    def save_config(self, args):
+        try:
+            with open('./checkpoint/last_config.py', 'w') as config_py:
+                config_py.write('config = [\n' + '\n'.join('\t\'--{} {}\','
+                    .format(arg, ' '.join(value) if isinstance(value, Iterable)
+                    and not isinstance(value, str) else value)
+                    for arg, value in vars(args).items()) + '\n]\n')
+        except:
+            print('Cannot save current config for checkpoint')
