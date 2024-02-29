@@ -3,3 +3,4 @@ dataset/*/
 build/
 _saved_checkpoints
 checkpoint/*.pt
+wandb

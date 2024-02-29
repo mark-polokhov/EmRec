@@ -1,6 +1,6 @@
 config = [
     # '-a',
-    '--datasets affectnet_short',
+    '--datasets affectnet_short fer2013',
     '--img_size 156',
     '--transform classic',
     '--val_split 0.1',

@@ -50,7 +50,7 @@ class MultiDataset(Dataset):
 
 
     def __getitem__(self, ind):
-        image = Image.open(self.images[ind])
+        image = Image.open(self.images[ind]).convert('RGB')
         if self.train:
             label = self.labels[ind]
             if self.transform is not None:
