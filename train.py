@@ -32,10 +32,17 @@ parser.add_argument('-s', '--save_every', type=int,
                     help='Make checkpoint after save_every number of epochs') ###
 parser.add_argument('--optimizer', type=str,
                     help='Adam or SGD')
-parser.add_argument('-m', '--model', type=str,
-                    help='Which model to use (resnet50)') ###
 parser.add_argument('-lr', '--lr_scheduler', type=str, default=None,
                     help='Which lr scheduler to use') ###
+parser.add_argument('-m', '--model', type=str,
+                    help='Which model to use (resnet50, vggtransformer)')
+# VGGTransformer
+parser.add_argument('--num-encoder-layers', type=int, default=3,
+                    help='Number of encoder layers for VGGTransformer')
+parser.add_argument('--num-decoder-layers', type=int, default=3,
+                    help='Number of decoder layers for VGGTransformer')
+parser.add_argument('--num-heads', type=int, default=8,
+                    help='Number of heads for VGGTransformer')
 
 args = parser.parse_args()
 

@@ -1,9 +1,11 @@
 import torch.nn as nn
 from torchvision.models import resnet50, ResNet50_Weights
 
+
 class ConvLayers(nn.Module):
     def __init__(self):
         super().__init__()
+        print('Training network - ResNet50')
 
         self.layers = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
         self.layers.fc = nn.Sequential(

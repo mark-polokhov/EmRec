@@ -1,4 +1,4 @@
-from models import ConvLayers
+from models import ConvLayers, VGGTransformer
 
 from collections.abc import Iterable
 from datetime import datetime
@@ -16,6 +16,13 @@ class Trainer():
     def __init__(self, args):
         if args.model.lower() == 'resnet50':
             self.model = ConvLayers()
+        elif args.model.lower() == 'vggtransformer':
+            assert args.num_encoder_layers > 0, 'num_encoder_layers must be > 0'
+            assert args.num_decoder_layers > 0, 'num_decoder_layers must be > 0'
+            assert args.num_heads > 0, 'num_heads must be > 0'
+            self.model = VGGTransformer(num_encoder_layers=args.num_encoder_layers,
+                                        num_decoder_layers=args.num_decoder_layers,
+                                        nhead=args.num_heads)
         else:
             raise NotImplementedError
 
@@ -24,7 +31,7 @@ class Trainer():
             self.model.load_state_dict(torch.load(''.join(['./checkpoint/', args.checkpoint])))
             self.loaded_epoch = int(re.findall(r'_e\d+_', args.checkpoint)[0][2:-1])
 
-        self.criterion = nn.CrossEntropyLoss()
+        self.criterion = nn.CrossEntropyLoss() # needs to be chosen carefully
         if args.optimizer.lower() == 'adam':
             self.optimizer = Adam(self.model.parameters(), lr=0.0001)
         elif args.optimizer.lower() == 'sgd':

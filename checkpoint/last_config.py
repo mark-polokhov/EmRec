@@ -1,7 +1,7 @@
 config = [
 	'--all_datasets False',
-	'--datasets affectnet_short fer2013',
-	'--img_size 156',
+	'--datasets affectnet_short',
+	'--img_size 96',
 	'--transform classic',
 	'--val_split 0.1',
 	'--split_seed 18',
