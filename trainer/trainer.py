@@ -14,15 +14,16 @@ import wandb
 
 class Trainer():
     def __init__(self, args):
-        if args.model.lower() == 'resnet50':
+        self.model_name = args.model.lower()
+        if self.model_name == 'resnet50':
             self.model = ConvLayers()
-        elif args.model.lower() == 'vggtransformer':
+        elif self.model_name == 'vggtransformer':
             assert args.num_encoder_layers > 0, 'num_encoder_layers must be > 0'
             assert args.num_decoder_layers > 0, 'num_decoder_layers must be > 0'
             assert args.num_heads > 0, 'num_heads must be > 0'
             self.model = VGGTransformer(num_encoder_layers=args.num_encoder_layers,
                                         num_decoder_layers=args.num_decoder_layers,
-                                        nhead=args.num_heads)
+                                        emb_size=args.vgg_emb_size, nhead=args.num_heads)
         else:
             raise NotImplementedError
 
@@ -81,7 +82,10 @@ class Trainer():
         for images, target in tqdm(dataloader):
             images = images.to(self.device)
             target = target.to(self.device)
-            logits = self.model(images)
+            if self.model_name == 'resnet50':
+                logits = self.model(images)
+            if self.model_name == 'vggtransformer':
+                logits = self.model(images, target)
 
             self.optimizer.zero_grad()
 

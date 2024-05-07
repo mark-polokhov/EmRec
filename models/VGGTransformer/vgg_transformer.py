@@ -9,7 +9,7 @@ class VGGTransformer(nn.Module):
     def __init__(self,
             num_encoder_layers: int,
             num_decoder_layers: int,
-            # emb_size: int,
+            emb_size: int,
             nhead: int,
             num_classes: int = 7,
             dim_feedforward: int = 512,
@@ -18,19 +18,21 @@ class VGGTransformer(nn.Module):
         super(VGGTransformer, self).__init__()
         print('Training network - VGGTransformer')
 
-        self.embedding = VGGEmbedding()
-        self.emb_size = self.embedding.emb_size
-        self.positional_embedding = PositionalEncoding(self.emb_size, dropout)
-        self.transformer = Transformer(d_model=self.emb_size,
+        self.embedding = VGGEmbedding(emb_size=emb_size)
+        self.positional_embedding = PositionalEncoding(emb_size, dropout)
+        self.transformer = Transformer(d_model=emb_size,
                                        nhead=nhead,
                                        num_encoder_layers=num_encoder_layers,
                                        num_decoder_layers=num_decoder_layers,
                                        dim_feedforward=dim_feedforward,
-                                       dropout=dropout)
-        self.classifier = nn.Linear(self.emb_size, num_classes)
+                                       dropout=dropout,
+                                       batch_first=True)
+        self.classifier = nn.Linear(emb_size, num_classes)
     
-    def forward(self, input):
+    def forward(self, input, target):
+        print(input.shape, target.shape)
         input_positional_embedding = self.positional_embedding(self.embedding(input))
-        output = self.transformer(input_positional_embedding)
+        print(input_positional_embedding.shape)
+        output = self.transformer(input_positional_embedding, target)
         return self.classifier(output)
 

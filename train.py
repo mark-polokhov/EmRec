@@ -43,6 +43,8 @@ parser.add_argument('--num-decoder-layers', type=int, default=3,
                     help='Number of decoder layers for VGGTransformer')
 parser.add_argument('--num-heads', type=int, default=8,
                     help='Number of heads for VGGTransformer')
+parser.add_argument('--vgg-emb-size', type=int, default=8,
+                    help='Embedding size for VGGTransformer')
 
 args = parser.parse_args()
 
