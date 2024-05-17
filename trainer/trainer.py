@@ -1,4 +1,4 @@
-from models import ConvLayers, VGGTransformer
+from models import ConvLayers, VGGTransformer, ViT
 
 from collections.abc import Iterable
 from datetime import datetime
@@ -23,7 +23,12 @@ class Trainer():
             assert args.num_heads > 0, 'num_heads must be > 0'
             self.model = VGGTransformer(num_encoder_layers=args.num_encoder_layers,
                                         num_decoder_layers=args.num_decoder_layers,
-                                        emb_size=args.vgg_emb_size, nhead=args.num_heads)
+                                        emb_size=args.emb_size, nhead=args.num_heads)
+        elif self.model_name in {'vit', 'visiontransformer'}:
+            self.model = ViT(img_size=args.img_size,
+                            num_layers=args.num_encoder_layers,
+                            num_heads=args.num_heads,
+                            emb_size=args.emb_size)
         else:
             raise NotImplementedError
 
@@ -84,8 +89,10 @@ class Trainer():
             target = target.to(self.device)
             if self.model_name == 'resnet50':
                 logits = self.model(images)
-            if self.model_name == 'vggtransformer':
+            elif self.model_name == 'vggtransformer':
                 logits = self.model(images, target)
+            elif self.model_name == 'vit' or self.model_name == 'visiontransformer':
+                logits = self.model(images)
 
             self.optimizer.zero_grad()
 
@@ -115,7 +122,12 @@ class Trainer():
             for images, target in tqdm(dataloader):
                 images = images.to(self.device)
                 target = target.to(self.device)
-                logits = self.model(images)
+                if self.model_name == 'resnet50':
+                    logits = self.model(images)
+                elif self.model_name == 'vggtransformer':
+                    logits = self.model(images, target)
+                elif self.model_name == 'vit' or self.model_name == 'visiontransformer':
+                    logits = self.model(images)
 
                 loss = self.criterion(logits, target)
                 losses += loss.item()

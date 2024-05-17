@@ -35,7 +35,7 @@ parser.add_argument('--optimizer', type=str,
 parser.add_argument('-lr', '--lr_scheduler', type=str, default=None,
                     help='Which lr scheduler to use') ###
 parser.add_argument('-m', '--model', type=str,
-                    help='Which model to use (resnet50, vggtransformer)')
+                    help='Which model to use (resnet50, vggtransformer or visiontransformer/vit)')
 # VGGTransformer
 parser.add_argument('--num-encoder-layers', type=int, default=3,
                     help='Number of encoder layers for VGGTransformer')
@@ -43,8 +43,8 @@ parser.add_argument('--num-decoder-layers', type=int, default=3,
                     help='Number of decoder layers for VGGTransformer')
 parser.add_argument('--num-heads', type=int, default=8,
                     help='Number of heads for VGGTransformer')
-parser.add_argument('--vgg-emb-size', type=int, default=8,
-                    help='Embedding size for VGGTransformer')
+parser.add_argument('--emb-size', type=int, default=8,
+                    help='Embedding size for Transformers')
 
 args = parser.parse_args()
 

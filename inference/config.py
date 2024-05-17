@@ -1,9 +1,13 @@
 infer_config = [
-    '--datasets test_tiny',
-    '--img_size 128',
-    '--transform default',
+    '--datasets video_example',
+    '--img_size 64',
+    '--transform classic',
 
+    '--vgg-emb-size 128',
     '--num_workers 4',
-    '--checkpoint 20240226_e5_checkpoint_last.pt',
-    '--model resnet50',
+    '--checkpoint 20240509_classic_img64_b4_e1_checkpoint_best.pt',
+    '--model vggtransformer',
+    '--num-encoder-layers 1',
+    '--num-decoder-layers 1',
+    '--num-heads 4',
 ]

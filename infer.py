@@ -21,7 +21,15 @@ parser.add_argument('-j', '--num_workers', type=int, default=4,
 parser.add_argument('-ch', '--checkpoint', type=str,
                     help='name of the checkpoint file to start training with') ###
 parser.add_argument('-m', '--model', type=str,
-                    help='Which model to use (resnet50)') ###
+                    help='Which model to use (resnet50, vggtransformer)')
+parser.add_argument('--num-encoder-layers', type=int, default=3,
+                    help='Number of encoder layers for VGGTransformer')
+parser.add_argument('--num-decoder-layers', type=int, default=3,
+                    help='Number of decoder layers for VGGTransformer')
+parser.add_argument('--num-heads', type=int, default=8,
+                    help='Number of heads for VGGTransformer')
+parser.add_argument('--vgg-emb-size', type=int, default=8,
+                    help='Embedding size for VGGTransformer')
 
 args = parser.parse_args()
 

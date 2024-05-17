@@ -27,12 +27,16 @@ class VGGTransformer(nn.Module):
                                        dim_feedforward=dim_feedforward,
                                        dropout=dropout,
                                        batch_first=True)
+        self.class_embedding = nn.Embedding(num_classes, emb_size)
         self.classifier = nn.Linear(emb_size, num_classes)
     
     def forward(self, input, target):
-        print(input.shape, target.shape)
-        input_positional_embedding = self.positional_embedding(self.embedding(input))
-        print(input_positional_embedding.shape)
-        output = self.transformer(input_positional_embedding, target)
-        return self.classifier(output)
+        # input_positional_embedding = self.positional_embedding(self.embedding(input))
+        # target_embedding = self.class_embedding(target)
+        # output = self.transformer(input_positional_embedding, target_embedding)
+        # return self.classifier(output)
 
+        input_embedding = self.embedding(input)
+        target_embedding = self.class_embedding(target)
+        output = self.transformer(input_embedding, target_embedding)
+        return self.classifier(output)
