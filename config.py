@@ -50,15 +50,15 @@ Config for VisionTransformer
 
 config = [
     # '-a',
-    '--datasets affectnet_short',
+    '--datasets affectnet_short fer2013',
     '--img_size 128',
     '--transform classic',
     '--val_split 0.1',
     '--split_seed 18',
 
     '--model vit',
-    '--num-encoder-layers 12',
-    '--emb-size 768',
+    '--num-encoder-layers 6',
+    '--emb-size 256',
     '--num-heads 12',
     '--epochs 50',
     '--batch_size 32',
