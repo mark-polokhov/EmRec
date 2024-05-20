@@ -1,6 +1,6 @@
 config = [
 	'--all_datasets False',
-	'--datasets affectnet_short fer2013',
+	'--datasets affectnet_short',
 	'--img_size 128',
 	'--transform classic',
 	'--val_split 0.1',
@@ -13,8 +13,8 @@ config = [
 	'--optimizer Adam',
 	'--lr_scheduler None',
 	'--model vit',
-	'--num_encoder_layers 6',
+	'--num_encoder_layers 12',
 	'--num_decoder_layers 3',
 	'--num_heads 12',
-	'--emb_size 256',
+	'--emb_size 768',
 ]

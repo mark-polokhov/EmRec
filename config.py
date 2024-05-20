@@ -50,20 +50,20 @@ Config for VisionTransformer
 
 config = [
     # '-a',
-    '--datasets affectnet_short fer2013',
+    '--datasets affectnet_short',
     '--img_size 128',
     '--transform classic',
     '--val_split 0.1',
     '--split_seed 18',
 
     '--model vit',
-    '--num-encoder-layers 6',
-    '--emb-size 256',
+    '--num-encoder-layers 12',
+    '--emb-size 768',
     '--num-heads 12',
     '--epochs 50',
     '--batch_size 32',
     '--num_workers 12',
     '--optimizer Adam',
     '--save_every 1',
-    # '--checkpoint 20240227_e6_checkpoint_last.pt',
+    # '--checkpoint 20240519_classic_img128_b32_e10_checkpoint_best.pt',
 ]

@@ -42,6 +42,9 @@ def write_predicts(images, predicts):
     except:
         print('Cannot save inference result into \'./inference/output/predicts.txt\', aborting')
 
+def smooth_predicts(predicts):
+    pass
+
 def run_inference():
     dataset = MultiDataset(args, train=False, transform=apply_transform(args))
     dataloader = DataLoader(dataset, batch_size=1, shuffle=False,

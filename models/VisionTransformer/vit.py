@@ -4,6 +4,7 @@ import torch.nn as nn
 # from vit_pytorch import ViT as ViTPyTorch
 from pytorch_pretrained_vit import ViT as PretrainedViT
 
+
 class ViT(nn.Module):
     def __init__(self,
             img_size: int,

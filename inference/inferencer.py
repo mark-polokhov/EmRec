@@ -39,6 +39,8 @@ class Inferencer():
                     logits = self.model(images)
                 elif self.model_name == 'vggtransformer':
                     logits = self.model(images, torch.full((images.shape[0],), 1).to(self.device))
+                elif self.model_name in {'vit', 'visiontransformer'}:
+                    logits = self.model(images)
                 _, predicted = torch.max(logits.data, 1)
                 predicts.extend(predicted)
 
