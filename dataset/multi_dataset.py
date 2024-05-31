@@ -10,12 +10,13 @@ class MultiDataset(Dataset):
         self.train = train
         
         self.labels_list = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
-        if args.all_datasets:
-            self.datasets = [folder for folder in os.listdir('./dataset/')
-                             if os.path.isdir(''.join(['./dataset/', folder]))
-                             and not folder.lower().startswith('_')]
-        else:
-            self.datasets = args.datasets
+        # if args.all_datasets:
+        #     self.datasets = [folder for folder in os.listdir('./dataset/')
+        #                      if os.path.isdir(''.join(['./dataset/', folder]))
+        #                      and not folder.lower().startswith('_')]
+        # else:
+        #     self.datasets = args.datasets
+        self.datasets = args.datasets
         self.transform = transform
 
         print(self.datasets)
@@ -25,7 +26,10 @@ class MultiDataset(Dataset):
         if self.train:
             for dataset in self.datasets:
                 for ind, label in enumerate(self.labels_list):
-                    dataset_path = ''.join(['./dataset/', dataset, '/', label])
+                    if '/' in dataset:
+                        dataset_path = dataset
+                    else:
+                        dataset_path = ''.join(['./dataset/', dataset, '/', label])
                     dataset_images = [''.join([dataset_path, '/', file])
                                     for file in os.listdir(dataset_path)
                                     if os.path.isfile(''.join([dataset_path, '/', file]))
@@ -38,7 +42,10 @@ class MultiDataset(Dataset):
                     self.labels.extend(dataset_labels)
         else:
             for dataset in self.datasets:
-                dataset_path = ''.join(['./dataset/', dataset])
+                if '/' in dataset:
+                    dataset_path = dataset
+                else:
+                    dataset_path = ''.join(['./dataset/', dataset])
                 dataset_images = [''.join([dataset_path, '/', file])
                                 for file in os.listdir(dataset_path)
                                 if os.path.isfile(''.join([dataset_path, '/', file]))

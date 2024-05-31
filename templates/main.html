@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='resources/favicon.ico') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>EmRec — Emotion Recognition for your video</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">EmRec</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="slider-thumb">
+                    <form id="upload-form">
+                        <label for="video-upload" class="file-label">
+                            <span>Choose Video File</span>
+                            <input type="file" id="video-upload" name="video" accept="video/*" style="display:none;" onchange="uploadFile()">
+                        </label>
+                    </form>
+                </div>
+                <div class="description">
+                    <h2>Get Emotional Descriptions for Each Frame of Your Video</h2>
+                    <p>Upload your video and let us provide you with predictions for every frame.</p>
+                </div>
+            </div>
+        </section>
+        <section class="video-decsr">
+            <div class="video-info" id="video-info">
+                <div class="video-detailed" id="video-detailed">
+                    <div class="video-frame" id="video-frame">
+                        <figure class="figure-class" id="figure-class">
+                            <img src="../static/favicon.ico" class="image-class" id="image-class" alt="">
+                            <figcaption class="class-caption" id="class-caption">Unknown</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="predicts" id="predicts">
+                    <ul id="predicts-list">
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="settings">
+                <select name="model" id="model" class="model"></select>
+            </div> -->
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 EmRec</p>
+    </footer>
+    <script src="../static/jquery.js"></script>
+    <script src="../static/script.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 # from torchvision.models import VisionTransformer
-# from vit_pytorch import ViT as ViTPyTorch
+from vit_pytorch import ViT as ViTPyTorch
 from pytorch_pretrained_vit import ViT as PretrainedViT
 
 
@@ -27,12 +27,12 @@ class ViT(nn.Module):
             
         # vit_pytorch
         # self.vision_transformer = ViTPyTorch(
-        #     image_size = 128,
-        #     patch_size = 32,
+        #     image_size = img_size,
+        #     patch_size = 16,
         #     num_classes = 7,
-        #     dim = 1024,
-        #     depth = 6,
-        #     heads = 8,
+        #     dim = 768,
+        #     depth = 3,
+        #     heads = 4,
         #     mlp_dim = 2048
         # )
 

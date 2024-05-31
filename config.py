@@ -5,7 +5,7 @@ Config for resnet50
 # config = [
 #     # '-a',
 #     '--datasets affectnet_short',
-#     '--img_size 96',
+#     '--img_size 128',
 #     '--transform classic',
 #     '--val_split 0.1',
 #     '--split_seed 18',
@@ -57,9 +57,9 @@ config = [
     '--split_seed 18',
 
     '--model vit',
-    '--num-encoder-layers 12',
+    '--num-encoder-layers 3',
     '--emb-size 768',
-    '--num-heads 12',
+    '--num-heads 4',
     '--epochs 50',
     '--batch_size 32',
     '--num_workers 12',

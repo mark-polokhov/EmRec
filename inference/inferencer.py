@@ -1,4 +1,4 @@
-from models import ConvLayers, VGGTransformer
+from models import ConvLayers, VGGTransformer, ViT
 
 import torch
 from tqdm import tqdm
@@ -16,6 +16,11 @@ class Inferencer():
             self.model = VGGTransformer(num_encoder_layers=args.num_encoder_layers,
                                         num_decoder_layers=args.num_decoder_layers,
                                         emb_size=args.vgg_emb_size, nhead=args.num_heads)
+        elif self.model_name in {'vit', 'visiontransformer'}:
+            self.model = ViT(img_size=args.img_size,
+                            num_layers=args.num_encoder_layers,
+                            num_heads=args.num_heads,
+                            emb_size=args.emb_size)
         else:
             raise NotImplementedError
         
@@ -31,6 +36,7 @@ class Inferencer():
         self.model.eval()
 
         predicts = []
+        # pred_class = []
         with torch.no_grad():
             for images in tqdm(dataloader):
                 images = images.to(self.device)
@@ -41,7 +47,10 @@ class Inferencer():
                     logits = self.model(images, torch.full((images.shape[0],), 1).to(self.device))
                 elif self.model_name in {'vit', 'visiontransformer'}:
                     logits = self.model(images)
-                _, predicted = torch.max(logits.data, 1)
-                predicts.extend(predicted)
+                preds = torch.nn.Sigmoid()(logits)
+                # _, predicted = torch.max(preds.data, 1)
+                # pred_class.extend(predicted)
+                predicts.extend(preds)
 
+        # return pred_class, preds
         return predicts

@@ -13,8 +13,8 @@ config = [
 	'--optimizer Adam',
 	'--lr_scheduler None',
 	'--model vit',
-	'--num_encoder_layers 12',
+	'--num_encoder_layers 3',
 	'--num_decoder_layers 3',
-	'--num_heads 12',
+	'--num_heads 8',
 	'--emb_size 768',
 ]
