@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-# from torchvision.models import VisionTransformer
+from torchvision.models import VisionTransformer
 from vit_pytorch import ViT as ViTPyTorch
 from pytorch_pretrained_vit import ViT as PretrainedViT
 
@@ -41,18 +41,18 @@ class ViT(nn.Module):
         # self.vision_transformer.load_state_dict(torch.load('./models/VisionTransformer/dino_deitsmall16_pretrain_full_checkpoint.pth'))
 
         # DINO v2
-        # self.vision_transformer = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
-        # self.classifier = nn.Sequential(
-        #     nn.Linear(384, 256),
-        #     nn.ReLU(),
-        #     nn.Linear(256, 7)
-        # )
+        self.vision_transformer = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')
+        self.classifier = nn.Sequential(
+            nn.Linear(384, 256),
+            nn.ReLU(),
+            nn.Linear(256, 7)
+        )
 
         # Pretrained
-        self.vision_transformer = PretrainedViT('B_16_imagenet1k',
-                                                pretrained=True,
-                                                image_size=img_size,
-                                                num_classes=num_classes)
+        # self.vision_transformer = PretrainedViT('B_16_imagenet1k',
+        #                                         pretrained=True,
+        #                                         image_size=img_size,
+        #                                         num_classes=num_classes)
     
     def forward(self, input):
         return self.vision_transformer(input)

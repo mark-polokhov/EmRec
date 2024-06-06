@@ -18,8 +18,8 @@ if __name__ == '__main__':
     if args.train:
         print('Starting training of the EmRec')
         print('Config:', ' '.join(config))
-        subprocess.run(f'python train.py {" ".join(config)}', shell=True)
+        subprocess.run(f'python3 train.py {" ".join(config)}', shell=True)
     elif args.infer:
         print('Starting inference of the EmRec')
         print('Config:', ' '.join(infer_config))
-        subprocess.run(f'python infer.py {" ".join(infer_config)}', shell=True)
+        subprocess.run(f'python3 infer.py {" ".join(infer_config)}', shell=True)

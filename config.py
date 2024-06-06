@@ -50,8 +50,8 @@ Config for VisionTransformer
 
 config = [
     # '-a',
-    '--datasets affectnet_short',
-    '--img_size 128',
+    '--datasets affectnet_short fer2013',
+    '--img_size 224',
     '--transform classic',
     '--val_split 0.1',
     '--split_seed 18',
@@ -61,7 +61,7 @@ config = [
     '--emb-size 768',
     '--num-heads 4',
     '--epochs 50',
-    '--batch_size 32',
+    '--batch_size 128',
     '--num_workers 12',
     '--optimizer Adam',
     '--save_every 1',
