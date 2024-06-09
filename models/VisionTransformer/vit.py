@@ -56,10 +56,10 @@ class ViT(nn.Module):
         # )
 
         # Pretrained
-        # self.vision_transformer = PretrainedViT('B_16_imagenet1k',
-        #                                         pretrained=True,
-        #                                         image_size=img_size,
-        #                                         num_classes=num_classes)
+        self.vision_transformer = PretrainedViT('B_16_imagenet1k',
+                                                pretrained=True,
+                                                image_size=img_size,
+                                                num_classes=num_classes)
 
         # Distillated
         # self.teacher = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
@@ -87,10 +87,10 @@ class ViT(nn.Module):
         # )
     
         # Huggingface
-        model_name_or_path = 'google/vit-base-patch16-224-in21k'
-        self.vision_transformer = ViTForImageClassification.from_pretrained(
-            model_name_or_path,
-            num_labels=num_classes)
+        # model_name_or_path = 'google/vit-base-patch16-224-in21k'
+        # self.vision_transformer = ViTForImageClassification.from_pretrained(
+        #     model_name_or_path,
+        #     num_labels=num_classes)
 
     def forward(self, input, labels=None):
         return self.vision_transformer(input)

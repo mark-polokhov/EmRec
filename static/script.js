@@ -152,6 +152,9 @@ function uploadFile() {
       });
       });
       updateVideoInfo(1);
+      window.addEventListener('beforeunload', function(event) {
+        navigator.sendBeacon('/cleanup', uuid);
+      });
       if (data.success) {
         fileLabel.textContent = "Choose Video File";
       } else {

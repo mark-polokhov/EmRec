@@ -5,7 +5,7 @@ vit_config = [
     '--transform classic',
 
     '--num_workers 4',
-    '--checkpoint 20240519_classic_img128_b32_e8_checkpoint_best.pt',
+    '--checkpoint vit_best_20240519_classic_img128_b32_e8_checkpoint_best.pt',
     '--model vit',
     '--num-encoder-layers 3',
     '--emb-size 768',

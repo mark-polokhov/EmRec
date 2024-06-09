@@ -54,7 +54,7 @@ def upload_file():
                                       check=True, stdout=subprocess.PIPE, text=True)
             frames = [file for file in os.listdir(os.path.join(app.config['UPLOAD_FOLDER'], unique_folder)) if file.endswith('.png')]
             full_path = str(pathlib.Path(__file__).parent.resolve()).replace('\\', '/') + '/' + app.config['UPLOAD_FOLDER'] + unique_folder
-            subprocess.run(f'python infer.py {" ".join(vit_config + [f"-d {full_path}"] + [f"-o {full_path}/predicts.txt"])}', shell=True)
+            subprocess.run(f'python3 infer.py {" ".join(vit_config + [f"-d {full_path}"] + [f"-o {full_path}/predicts.txt"])}', shell=True)
             with open(f"{full_path}/predicts.txt", 'r') as predicts_file:
                 labels = predicts_file.readline().split()
                 predicts = [list(map(lambda x : round(float(x) * 100, 1), row.strip('\n').split())) for row in predicts_file.readlines()]
@@ -64,6 +64,19 @@ def upload_file():
             return jsonify({'success': False, 'error': str(e)})
         return jsonify({'success': True})
     return jsonify({'success': False, 'error': 'Invalid file type'})
+
+@app.route('/cleanup', methods=['POST'])
+def cleanup():
+    session_id = request.get_data(as_text=True)
+    delete_files(session_id)
+    return '', 204
+
+def delete_files(session_id):
+    full_path = str(pathlib.Path(__file__).parent.resolve()).replace('\\', '/') + '/' + app.config['UPLOAD_FOLDER'] + session_id
+    for filename in os.listdir(full_path):
+        os.remove(full_path + '/' + filename)
+    os.rmdir(full_path)
+    return
 
 if __name__ == "__main__":
     # Ensure the upload folder exists
