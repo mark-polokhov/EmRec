@@ -39,7 +39,7 @@ class Trainer():
 
         self.criterion = nn.CrossEntropyLoss() # needs to be chosen carefully
         if args.optimizer.lower() == 'adam':
-            self.optimizer = Adam(self.model.parameters(), lr=1e-5)
+            self.optimizer = Adam(self.model.parameters(), lr=1e-4)
         elif args.optimizer.lower() == 'sgd':
             self.optimizer = SGD()
         else:
@@ -92,7 +92,7 @@ class Trainer():
             elif self.model_name == 'vggtransformer':
                 logits = self.model(images, target)
             elif self.model_name == 'vit' or self.model_name == 'visiontransformer':
-                logits = self.model(images)
+                logits = self.model(images).logits
 
             self.optimizer.zero_grad()
 
@@ -127,7 +127,7 @@ class Trainer():
                 elif self.model_name == 'vggtransformer':
                     logits = self.model(images, target)
                 elif self.model_name == 'vit' or self.model_name == 'visiontransformer':
-                    logits = self.model(images)
+                    logits = self.model(images).logits
 
                 loss = self.criterion(logits, target)
                 losses += loss.item()

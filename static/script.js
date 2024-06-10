@@ -70,14 +70,16 @@ function changePredicts(imageNumber) {
       max_value = values[i - 1];
       pred_class = i - 1;
     }
-    if (values[i - 1] > 50) {
+    if (values[i - 1] > 15) {
       $('#predicts-list li:nth-child(' + i + ')').css('border', '1px solid #99FF99');
     }
-    if (values[i - 1] > 90) {
+    if (values[i - 1] > 50) {
       $('#predicts-list li:nth-child(' + i + ')').css('background', '#99FF99');
       $('#predicts-list li:nth-child(' + i + ')').css('color', '#222');
     }
   }
+
+  return pred_class;
 }
 
 function changeClass(imageNumber, numberOfImages) {
@@ -87,13 +89,12 @@ function changeClass(imageNumber, numberOfImages) {
   var bias = (imageNumber - 1) / (numberOfImages - 1);
   figure_class.style.transform = 'translate(calc(-20vw + 14px + ' + bias + ' * (40vw - 28px)), calc(50vw * 9 / 32 - 3vw))';
 
+  pred_class = changePredicts(imageNumber);
+
   var emotion = classes[pred_class];
   image_class.src = 'static/resources/emotions/' + emotion + '.png';
   image_class.alt = emotion;
   class_caption.innerHTML = emotion;
-
-  changePredicts();
-  
 }
 
 function updateVideoInfo(frame) {

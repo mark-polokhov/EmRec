@@ -10,7 +10,6 @@ class ConvLayers(nn.Module):
         self.layers = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
         self.layers.fc = nn.Sequential(
             nn.Linear(in_features=2048, out_features=7),
-            nn.Sigmoid(),
         )
     
     def forward(self, input):

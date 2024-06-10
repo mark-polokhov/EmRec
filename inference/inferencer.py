@@ -46,8 +46,8 @@ class Inferencer():
                 elif self.model_name == 'vggtransformer':
                     logits = self.model(images, torch.full((images.shape[0],), 1).to(self.device))
                 elif self.model_name in {'vit', 'visiontransformer'}:
-                    logits = self.model(images)
-                preds = torch.nn.Sigmoid()(logits)
+                    logits = self.model(images).logits
+                preds = torch.nn.functional.softmax(logits, dim=1)
                 # _, predicted = torch.max(preds.data, 1)
                 # pred_class.extend(predicted)
                 predicts.extend(preds)

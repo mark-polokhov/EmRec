@@ -87,10 +87,10 @@ class ViT(nn.Module):
         # )
     
         # Huggingface
-        # model_name_or_path = 'google/vit-base-patch16-224-in21k'
-        # self.vision_transformer = ViTForImageClassification.from_pretrained(
-        #     model_name_or_path,
-        #     num_labels=num_classes)
+        model_name_or_path = 'google/vit-base-patch16-224-in21k'
+        self.vision_transformer = ViTForImageClassification.from_pretrained(
+            model_name_or_path,
+            num_labels=num_classes)
 
     def forward(self, input, labels=None):
         return self.vision_transformer(input)
