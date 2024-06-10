@@ -77,7 +77,7 @@ The experiments conducted in this project include:
 
 ## Results
 
-The experimental results demonstrate the performance of different models on the AffectNet dataset. Detailed results and comparisons can be found in the WandB workspace.
+The experimental results demonstrate the performance of different models on the AffectNet dataset. Detailed results and comparisons can be found in the [WandB workspace](https://wandb.ai/mark-polokhov/EmRec/workspace?nw=nwusermarkizzz).
 
 ## Contributing
 
