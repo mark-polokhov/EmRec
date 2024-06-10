@@ -12,7 +12,6 @@ This repository contains the code and resources for the Emotion Recognition Proj
 - [Experiments](#experiments)
 - [Results](#results)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Introduction
