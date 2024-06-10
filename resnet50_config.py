@@ -5,7 +5,7 @@ resnet50_config = [
     '--transform classic',
 
     '--num_workers 4',
-    '--checkpoint 20240519_classic_img128_b32_e8_checkpoint_best.pt',
+    '--checkpoint resnet_71_3_20240608_classic_img156_b16_e42_checkpoint_best.pt',
     '--model resnet50',
     '--num-encoder-layers 3',
     '--emb-size 768',
